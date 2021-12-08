@@ -1,3 +1,4 @@
+part of shurjopay;
 
 class RequiredData {
   final String username;

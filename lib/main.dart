@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shurjopay/shurjopay.dart';
 
 void main() {
   runApp(const MyApp());
@@ -6,6 +7,9 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  void _onSuccess() {}
+  void _onFail() {}
 
   // This widget is the root of your application.
   @override
@@ -24,7 +28,22 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: Shurjopay(
+          data: const RequiredData(
+              username: 'paypointDigital',
+              password: 'paypsy6q#jm#5jx5',
+              prefix: 'PPD',
+              currency: 'BDT',
+              amount: 10.0,
+              order_id: 'PPD123456',
+              customer_name: 'Monir',
+              customer_phone: '01234567890',
+              customer_address: 'Dhaka',
+              customer_city: 'Dhaka'),
+          onSuccess: _onSuccess,
+          onFail: _onFail,
+      ),
     );
   }
 }
