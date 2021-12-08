@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:webview_flutter/webview_flutter.dart';
 
 part 'token.dart';
 part 'required_data.dart';
@@ -26,6 +27,7 @@ class Shurjopay extends StatefulWidget {
 
 class _ShurjopayState extends State<Shurjopay> {
   late Token _token;
+  late WebViewController _controller;
 
   void createToken(Token token) async {
     final response = await http.post(
@@ -44,11 +46,13 @@ class _ShurjopayState extends State<Shurjopay> {
       // then parse the JSON.
       setState(() {
         _token = Token.fromJson(jsonDecode(response.body));
+        _controller.loadUrl(_token.execute_url!);
         Navigator.of(context).pop();
       });
     } else {
       // If the server did not return a 201 CREATED response,
       // then throw an exception.
+      Navigator.of(context).pop();
       throw Exception('Failed to get token.');
     }
   }
@@ -89,9 +93,17 @@ class _ShurjopayState extends State<Shurjopay> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: RaisedButton(
-        onPressed: () {},
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('shurjoPay'),
+      ),
+      body: WebView(
+        onWebViewCreated: (controller) {
+          _controller = controller;
+        },
+        onPageStarted: (url) {
+          debugPrint('url = $url');
+        },
       ),
     );
   }
