@@ -8,9 +8,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  void _onSuccess() {}
-  void _onFail() {}
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -28,22 +25,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      home: Shurjopay(
-          data: const RequiredData(
-              username: 'paypointDigital',
-              password: 'paypsy6q#jm#5jx5',
-              prefix: 'PPD',
-              currency: 'BDT',
-              amount: 10.0,
-              order_id: 'PPD123456',
-              customer_name: 'Monir',
-              customer_phone: '01234567890',
-              customer_address: 'Dhaka',
-              customer_city: 'Dhaka'),
-          onSuccess: _onSuccess,
-          onFail: _onFail,
-      ),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      /*home: ,*/
     );
   }
 }
@@ -67,67 +50,111 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  final TextEditingController _amountController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _cityController = TextEditingController();
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  void _onSuccess() {}
+  void _onFail() {}
+
+  void _pay() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Shurjopay(
+          onSuccess: _onSuccess,
+          onFail: _onFail,
+          data: const RequiredData(
+              username: 'paypointDigital',
+              password: 'paypsy6q#jm#5jx5',
+              prefix: 'PPD',
+              currency: 'BDT',
+              amount: 10.0,
+              order_id: 'PPD123456',
+              customer_name: 'Monir',
+              customer_phone: '01234567890',
+              customer_address: 'Dhaka',
+              customer_city: 'Dhaka'),
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              TextField(
+                controller: _amountController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Amount',
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 16.0),
+                child: TextField(
+                  controller: _nameController,
+                  keyboardType: TextInputType.name,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Name',
+                  ),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 16.0),
+                child: TextField(
+                  controller: _phoneController,
+                  keyboardType: TextInputType.phone,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Phone',
+                  ),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 16.0),
+                child: TextField(
+                  controller: _addressController,
+                  keyboardType: TextInputType.streetAddress,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Address',
+                  ),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 16.0),
+                child: TextField(
+                  controller: _cityController,
+                  keyboardType: TextInputType.streetAddress,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'City',
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        onPressed: _pay,
+        tooltip: 'Pay',
+        child: const Icon(Icons.check),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
