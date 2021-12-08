@@ -1,3 +1,5 @@
+part of shurjopay;
+
 class Token {
   final String? username;
   final String? password;

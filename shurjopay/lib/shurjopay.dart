@@ -5,12 +5,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:shurjopay/token.dart';
-
+part 'token.dart';
 part 'required_data.dart';
 
 class Shurjopay extends StatefulWidget {
-
   final RequiredData data;
   final VoidCallback onSuccess;
   final VoidCallback onFail;
@@ -27,7 +25,6 @@ class Shurjopay extends StatefulWidget {
 }
 
 class _ShurjopayState extends State<Shurjopay> {
-
   late Token _token;
 
   void createToken(Token token) async {
@@ -47,12 +44,34 @@ class _ShurjopayState extends State<Shurjopay> {
       // then parse the JSON.
       setState(() {
         _token = Token.fromJson(jsonDecode(response.body));
+        Navigator.of(context).pop();
       });
     } else {
       // If the server did not return a 201 CREATED response,
       // then throw an exception.
       throw Exception('Failed to get token.');
     }
+  }
+
+  void _showLoaderDialog() async {
+    await Future.delayed(const Duration(milliseconds: 10));
+    AlertDialog alert = AlertDialog(
+      content: Row(
+        children: [
+          const CircularProgressIndicator(),
+          Container(
+              margin: const EdgeInsets.only(left: 16),
+              child: const Text("Loading...")),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 
   @override
@@ -64,6 +83,7 @@ class _ShurjopayState extends State<Shurjopay> {
       password: widget.data.password,
     );
 
+    _showLoaderDialog();
     createToken(_token);
   }
 
