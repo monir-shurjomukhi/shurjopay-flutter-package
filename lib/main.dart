@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:shurjopay/shurjopay.dart';
 
@@ -50,11 +52,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final TextEditingController _amountController = TextEditingController();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _addressController = TextEditingController();
-  final TextEditingController _cityController = TextEditingController();
+  final TextEditingController _amountController =
+      TextEditingController(text: '10.0');
+  final TextEditingController _nameController =
+      TextEditingController(text: 'Monir');
+  final TextEditingController _phoneController =
+      TextEditingController(text: '01234567890');
+  final TextEditingController _addressController =
+      TextEditingController(text: 'Mohakhali');
+  final TextEditingController _cityController =
+      TextEditingController(text: 'Dhaka');
 
   void _onSuccess() {}
   void _onFail() {}
@@ -66,17 +73,17 @@ class _MyHomePageState extends State<MyHomePage> {
         builder: (context) => Shurjopay(
           onSuccess: _onSuccess,
           onFail: _onFail,
-          data: const RequiredData(
+          data: RequiredData(
               username: 'paypointDigital',
               password: 'paypsy6q#jm#5jx5',
               prefix: 'PPD',
               currency: 'BDT',
-              amount: 10.0,
-              order_id: 'PPD123456',
-              customer_name: 'Monir',
-              customer_phone: '01234567890',
-              customer_address: 'Dhaka',
-              customer_city: 'Dhaka'),
+              amount: double.parse(_amountController.text),
+              order_id: 'PPD${Random().nextInt(100000)}',
+              customer_name: _nameController.text,
+              customer_phone: _phoneController.text,
+              customer_address: _addressController.text,
+              customer_city: _cityController.text),
         ),
       ),
     );
@@ -95,17 +102,20 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              TextField(
-                controller: _amountController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Amount',
+              Container(
+                margin: const EdgeInsets.only(top: 8.0),
+                child: TextFormField(
+                  controller: _amountController,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Amount',
+                  ),
                 ),
               ),
               Container(
                 margin: const EdgeInsets.only(top: 16.0),
-                child: TextField(
+                child: TextFormField(
                   controller: _nameController,
                   keyboardType: TextInputType.name,
                   decoration: const InputDecoration(
@@ -116,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Container(
                 margin: const EdgeInsets.only(top: 16.0),
-                child: TextField(
+                child: TextFormField(
                   controller: _phoneController,
                   keyboardType: TextInputType.phone,
                   decoration: const InputDecoration(
@@ -127,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Container(
                 margin: const EdgeInsets.only(top: 16.0),
-                child: TextField(
+                child: TextFormField(
                   controller: _addressController,
                   keyboardType: TextInputType.streetAddress,
                   decoration: const InputDecoration(
@@ -138,7 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Container(
                 margin: const EdgeInsets.only(top: 16.0),
-                child: TextField(
+                child: TextFormField(
                   controller: _cityController,
                   keyboardType: TextInputType.streetAddress,
                   decoration: const InputDecoration(
