@@ -29,7 +29,7 @@ class _ShurjopayState extends State<Shurjopay> {
   late Token _token;
   late WebViewController _controller;
 
-  void createToken(Token token) async {
+  void _createToken(Token token) async {
     final response = await http.post(
       Uri.parse('https://engine.shurjopayment.com/api/get_token'),
       headers: <String, String>{
@@ -47,7 +47,7 @@ class _ShurjopayState extends State<Shurjopay> {
       setState(() {
         _token = Token.fromJson(jsonDecode(response.body));
         _controller.loadUrl(_token.execute_url!);
-        Navigator.of(context).pop();
+        Navigator.pop(context);
       });
     } else {
       // If the server did not return a 201 CREATED response,
@@ -88,7 +88,7 @@ class _ShurjopayState extends State<Shurjopay> {
     );
 
     _showLoaderDialog();
-    createToken(_token);
+    _createToken(_token);
   }
 
   @override
