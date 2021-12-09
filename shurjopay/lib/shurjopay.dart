@@ -32,7 +32,6 @@ class _ShurjopayState extends State<Shurjopay> {
   late WebViewController _controller;
   late Token _token;
   late CheckoutResponse _checkoutResponse;
-  late List<TransactionInfo> _transactions;
 
   @override
   void initState() {
@@ -74,8 +73,14 @@ class _ShurjopayState extends State<Shurjopay> {
         children: [
           const CircularProgressIndicator(),
           Container(
-              margin: const EdgeInsets.only(left: 16.0),
-              child: const Text("Loading...")),
+              margin: const EdgeInsets.only(left: 20.0),
+              child: const Text(
+                  "Loading...",
+                style: TextStyle(
+                  fontSize: 20.0
+                ),
+              )
+          ),
         ],
       ),
     );
@@ -171,10 +176,6 @@ class _ShurjopayState extends State<Shurjopay> {
     );
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
-      var transactionsJson = jsonDecode(response.body);
-      debugPrint('transactionsJson = $transactionsJson');
-      // _transactions = transactionsJson.map((transaction) => TransactionInfo.fromJson(transaction)).toList();
-
       TransactionInfo transactionInfo = TransactionInfo.fromJson(jsonDecode(response.body));
       if(transactionInfo.sp_code == '1000') {
         widget.onSuccess(transactionInfo);
