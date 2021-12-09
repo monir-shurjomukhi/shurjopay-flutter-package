@@ -1,19 +1,19 @@
 part of shurjopay;
 
 class CheckoutResponse {
-  final String checkout_url;
-  final double amount;
-  final String currency;
-  final String sp_order_id;
-  final String customer_order_id;
-  final String customer_name;
-  final String customer_address;
-  final String customer_city;
-  final String customer_phone;
-  final String customer_email;
-  final String client_ip;
-  final String intent;
-  final String transactionStatus;
+  final String? checkout_url;
+  final int? amount;
+  final String? currency;
+  final String? sp_order_id;
+  final String? customer_order_id;
+  final String? customer_name;
+  final String? customer_address;
+  final String? customer_city;
+  final String? customer_phone;
+  final String? customer_email;
+  final String? client_ip;
+  final String? intent;
+  final String? transactionStatus;
 
   const CheckoutResponse({
     required this.checkout_url,

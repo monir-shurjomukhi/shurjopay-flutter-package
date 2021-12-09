@@ -63,8 +63,12 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _cityController =
       TextEditingController(text: 'Dhaka');
 
-  void _onSuccess() {}
-  void _onFail() {}
+  void _onSuccess(TransactionInfo transactionInfo) {
+    debugPrint(transactionInfo.toString());
+  }
+  void _onFail(String message) {
+    debugPrint(message);
+  }
 
   void _pay() {
     Navigator.push(
