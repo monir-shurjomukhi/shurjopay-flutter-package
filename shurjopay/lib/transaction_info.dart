@@ -17,8 +17,9 @@ class TransactionInfo {
   final String? invoice_no;
   final String? bank_status;
   final String? customer_order_id;
-  final int? sp_code;
+  final String? sp_code;
   final String? sp_massage;
+  final String? message;
   final String? name;
   final String? email;
   final String? address;
@@ -50,6 +51,7 @@ class TransactionInfo {
     this.customer_order_id,
     this.sp_code,
     this.sp_massage,
+    this.message,
     this.name,
     this.email,
     this.address,
@@ -83,6 +85,7 @@ class TransactionInfo {
       customer_order_id: json['customer_order_id'],
       sp_code: json['sp_code'],
       sp_massage: json['sp_massage'],
+      message: json['message'],
       name: json['name'],
       email: json['email'],
       address: json['address'],
