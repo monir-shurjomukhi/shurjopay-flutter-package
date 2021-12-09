@@ -182,6 +182,10 @@ class _ShurjopayState extends State<Shurjopay> {
         },
         onPageStarted: (url) {
           debugPrint('url = $url');
+          if(url.contains('cancel_url')) {
+            Navigator.pop(context);
+            widget.onFail('Payment Cancelled!');
+          }
         },
       ),
     );

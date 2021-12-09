@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shurjopay/shurjopay.dart';
 
 void main() {
@@ -65,9 +66,27 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _onSuccess(TransactionInfo transactionInfo) {
     debugPrint(transactionInfo.toString());
+    Fluttertoast.showToast(
+        msg: transactionInfo.toString(),
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
   }
   void _onFail(String message) {
     debugPrint(message);
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
   }
 
   void _pay() {
