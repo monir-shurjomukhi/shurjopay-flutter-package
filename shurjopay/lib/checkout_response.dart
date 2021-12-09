@@ -30,4 +30,22 @@ class CheckoutResponse {
     required this.intent,
     required this.transactionStatus,
   });
+
+  factory CheckoutResponse.fromJson(Map<String, dynamic> json) {
+    return CheckoutResponse(
+      checkout_url: json['checkout_url'],
+      amount: json['amount'],
+      currency: json['currency'],
+      sp_order_id: json['sp_order_id'],
+      customer_order_id: json['customer_order_id'],
+      customer_name: json['customer_name'],
+      customer_address: json['customer_address'],
+      customer_city: json['customer_city'],
+      customer_phone: json['customer_phone'],
+      customer_email: json['customer_email'],
+      client_ip: json['client_ip'],
+      intent: json['intent'],
+      transactionStatus: json['transactionStatus'],
+    );
+  }
 }

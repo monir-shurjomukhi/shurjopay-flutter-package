@@ -62,4 +62,38 @@ class TransactionInfo {
     this.method,
     this.date_time,
   });
+
+  factory TransactionInfo.fromJson(Map<String, dynamic> json) {
+    return TransactionInfo(
+      id: json['id'],
+      order_id: json['order_id'],
+      currency: json['currency'],
+      amount: json['amount'],
+      payable_amount: json['payable_amount'],
+      discsount_amount: json['discsount_amount'],
+      disc_percent: json['disc_percent'],
+      usd_amt: json['usd_amt'],
+      usd_rate: json['usd_rate'],
+      card_holder_name: json['card_holder_name'],
+      card_number: json['card_number'],
+      phone_no: json['phone_no'],
+      bank_trx_id: json['bank_trx_id'],
+      invoice_no: json['invoice_no'],
+      bank_status: json['bank_status'],
+      customer_order_id: json['customer_order_id'],
+      sp_code: json['sp_code'],
+      sp_massage: json['sp_massage'],
+      name: json['name'],
+      email: json['email'],
+      address: json['address'],
+      city: json['city'],
+      value1: json['value1'],
+      value2: json['value2'],
+      value3: json['value3'],
+      value4: json['value4'],
+      transaction_status: json['transaction_status'],
+      method: json['method'],
+      date_time: json['date_time'],
+    );
+  }
 }
