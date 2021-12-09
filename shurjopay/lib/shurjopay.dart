@@ -8,6 +8,8 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 part 'token.dart';
 part 'required_data.dart';
+part 'checkout_request.dart';
+part 'checkout_response.dart';
 
 class Shurjopay extends StatefulWidget {
   final RequiredData data;
